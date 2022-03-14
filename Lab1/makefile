@@ -14,7 +14,7 @@ all: $(EXECUTABLE) $(SOURCES)
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(LFLAGS) -o $@ $(OBJECTS)
 
--include * .d
+-include *.d
 
 %.o:%.cpp
 	$(CC) $(CFLAGS) $<
