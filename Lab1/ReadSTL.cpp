@@ -6,7 +6,7 @@ using namespace std;
 
 class ReadSTL {
     private:
-        int numFacet;
+        int numFacet = 0;
         double Xmin = 0;
         double Xmax = 0;
         double Ymin = 0;
@@ -18,86 +18,104 @@ class ReadSTL {
         // Input Stream setup
         ifstream inputfile(filename, ifstream::in);
         string line;
+        string token;
         string solidName;
         // Solid header line
         getline(inputfile, line);
         // Input string stream for each line
         istringstream lineStream(line);
-        string token;
         // Iterate stream past "solid"
-        lineStream >> token; // Might not be a valid way of iterating stream
-        // Get solid name
         lineStream >> token;
-        solidName = token; // Might not work
+        // Get solid name
+        lineStream >> solidName;
         do {
             // Process entire solid, looping through each facet
+            // Get next line
             getline(inputfile, line);
-            istringstream lineStream(line);
+            // Set string stream to new line
+            lineStream.str(line);
+            // Clear sstream error state
+            lineStream.clear();
+            // Get first word in line
             lineStream >> token;
             if(!token.compare("facet")) {
                 // Process facet
+                // Facet header
+                // Iterate past "normal"
+                lineStream >> token;
+                // Coord double value
+                double coord;
+                // Convert coord string to double
+                // X Coord
+                lineStream >> token;
+                coord = stod(token);
+                // X Min
+                if((coord < Xmin) || numFacet == 0) {
+                    Xmin = coord;
+                }
+                // X Max
+                if((coord > Xmax) || numFacet == 0) {
+                    Xmax = coord;
+                }
+                // Y Coord
+                lineStream >> token;
+                coord = stod(token);
+                // Min
+                if((coord < Ymin) || numFacet == 0) {
+                    Ymin = coord;
+                }
+                // Max
+                if((coord > Ymax) || numFacet == 0) {
+                    Ymax = coord;
+                }
+                // Z Coord
+                lineStream >> token;
+                coord = stod(token);
+                // Min
+                if((coord < Zmin) || numFacet == 0) {
+                    Zmin = coord;
+                }
+                // Max
+                if((coord > Zmax) || numFacet == 0) {
+                    Zmax = coord;
+                }
+                // End facet header
+
                 do {
-                    // Process facet header
-                    // "normal"
+                    // Get next line
+                    getline(inputfile, line);
+                    // Set string stream to new line
+                    lineStream.str(line);
+                    // Clear sstream error state
+                    lineStream.clear();
                     lineStream >> token;
-                    // Coord double value
-                    double coord;
-                    // Convert coord string to double
-                    // X Coord
-                    lineStream >> token;
-                    coord = stod(token);
-                    // Min
-                    if(coord < Xmin) {
-                        Xmin = coord;
-                    }
-                    // Max
-                    if(coord > Xmax) {
-                        Xmax = coord;
-                    }
-                    // Y Coord
-                    lineStream >> token;
-                    coord = stod(token);
-                    // Min
-                    if(coord < Ymin) {
-                        Ymin = coord;
-                    }
-                    // Max
-                    if(coord > Ymax) {
-                        Ymax = coord;
-                    }
-                    // Z Coord
-                    lineStream >> token;
-                    coord = stod(token);
-                    // Min
-                    if(coord < Zmin) {
-                        Zmin = coord;
-                    }
-                    // Max
-                    if(coord > Zmax) {
-                        Zmax = coord;
-                    }
-                    // End facet header
-                    do {
-                        getline(inputfile, line);
-                        istringstream lineStream(line);
-                        lineStream >> token;
-                        if(token.compare("vertex")) {
-                            //Process vertex
-                            // No functionality needed
-                            // Does nothing but iterate through each coord
-                            // X coord
+                    if (!token.compare("outer")) {
+                        do {
+                            // Get next line
+                            getline(inputfile, line);
+                            // Set string stream to new line
+                            lineStream.str(line);
+                            // Clear sstream error state
+                            lineStream.clear();
                             lineStream >> token;
-                            // Y coord
-                            lineStream >> token;
-                            // Z coord
-                            lineStream >> token;
-                        } // End vertex line
-                    } while(line.compare("endloop")); // Endloop
-                } while(line.compare("endfacet")); // Endfacet
+                            if(!token.compare("vertex")) {
+                                //Process vertex
+                                // No functionality needed
+                                // Does nothing but iterate through each coord
+                                // X coord
+                                lineStream >> token;
+                                // Y coord
+                                lineStream >> token;
+                                // Z coord
+                                lineStream >> token;
+                            } // End vertex line
+                        } while(token.compare("endloop")); // Endloop
+                    } 
+                }while(token.compare("endfacet")); // Endfacet
                 // Iterate facet counter
                 numFacet++;
             }
-        } while (token.compare("endsolid"));
+        }while(token.compare("endsolid"));
         // Close file
         inputfile.close();
     }

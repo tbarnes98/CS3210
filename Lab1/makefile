@@ -1,4 +1,4 @@
-# lab1barnestr Makefile
+# lab1 Makefile
 
 CC = g++
 CFLAGS = -c -MMD
@@ -7,7 +7,7 @@ LFLAGS =
 SOURCES = ReadSTL.cpp main.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 # Change w/ every new project
-EXECUTABLE = lab1barnestr
+EXECUTABLE = lab1
 
 all: $(EXECUTABLE) $(SOURCES)
 

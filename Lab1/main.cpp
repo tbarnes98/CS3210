@@ -1,10 +1,14 @@
+#include <iostream>
+#include <string>
 #include "ReadSTL.cpp"
 using namespace std;
 
 int main(int argc, char** argv) {
-    
-    ReadSTL stl1(argv[1]);
-    cout << "Facets in file:" << stl1.getNumFacets() << endl;
+    cout << "Enter name of STL file: " << endl;
+    string filename;
+    cin >> filename;
+    ReadSTL stl1(filename);
+    cout << "Facets in file: " << stl1.getNumFacets() << endl;
     cout << "X Min: " << stl1.getXmin() << endl;
     cout << "X Max: " << stl1.getXmax() << endl;
 
