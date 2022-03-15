@@ -33,3 +33,5 @@
 
 # Other
 /.vscode
+*.pdf
+*.zip
