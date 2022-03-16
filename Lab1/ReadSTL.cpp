@@ -4,7 +4,7 @@
  * @brief A C++ file containing the functionality need to read in a .stl file.
  * The ReadSTL class allows the min/max coordinates and total count of the STL
  * facets be stored. The appropriate getters are also included.
- * @version 1.0
+ * @version 1.1
  * @date 2022-03-15
  * 
  * @copyright Copyright (c) 2022
@@ -55,35 +55,13 @@ class ReadSTL {
                     // Facet header
                     // Iterate past "normal"
                     lineStream >> token;
-                    // Coord double value
-                    double coord;
-                    // X Coord
+                    // No additional functionality required for facet normal vectors
+                    // Normal X
                     lineStream >> token;
-                    coord = stod(token);
-                    if((coord < Xmin) || numFacet == 0) {
-                        Xmin = coord;
-                    }
-                    if((coord > Xmax) || numFacet == 0) {
-                        Xmax = coord;
-                    }
-                    // Y Coord
+                    // Normal Y
                     lineStream >> token;
-                    coord = stod(token);
-                    if((coord < Ymin) || numFacet == 0) {
-                        Ymin = coord;
-                    }
-                    if((coord > Ymax) || numFacet == 0) {
-                        Ymax = coord;
-                    }
-                    // Z Coord
+                    // Z Normal
                     lineStream >> token;
-                    coord = stod(token);
-                    if((coord < Zmin) || numFacet == 0) {
-                        Zmin = coord;
-                    }
-                    if((coord > Zmax) || numFacet == 0) {
-                        Zmax = coord;
-                    }
                     // End facet header
                     do {
                         // Get next line
@@ -104,13 +82,35 @@ class ReadSTL {
                                 lineStream >> token;
                                 if(!token.compare("vertex")) {
                                     // Process vertex
-                                    // No additional functionality required
-                                    // X coord
+                                    // Coord double value
+                                    double coord;
+                                    // X Coord
                                     lineStream >> token;
-                                    // Y coord
+                                    coord = stod(token);
+                                    if((coord < Xmin) || numFacet == 0) {
+                                        Xmin = coord;
+                                    }
+                                    if((coord > Xmax) || numFacet == 0) {
+                                        Xmax = coord;
+                                    }
+                                    // Y Coord
                                     lineStream >> token;
-                                    // Z coord
+                                    coord = stod(token);
+                                    if((coord < Ymin) || numFacet == 0) {
+                                        Ymin = coord;
+                                    }
+                                    if((coord > Ymax) || numFacet == 0) {
+                                        Ymax = coord;
+                                    }
+                                    // Z Coord
                                     lineStream >> token;
+                                    coord = stod(token);
+                                    if((coord < Zmin) || numFacet == 0) {
+                                        Zmin = coord;
+                                    }
+                                    if((coord > Zmax) || numFacet == 0) {
+                                        Zmax = coord;
+                                    }
                                 } // End vertex line
                             } while(token.compare("endloop")); // Endloop
                         } 

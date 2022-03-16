@@ -5,7 +5,7 @@
  * ReadSTL class. The user enters the file location of the STL file as a 
  * command line arg and the console returns the min/max coords of the solid's
  * facets as well as the total number of facets.
- * @version 1.0
+ * @version 1.1
  * @date 2022-03-15
  * 
  * @copyright Copyright (c) 2022
@@ -16,8 +16,12 @@
 #include "ReadSTL.cpp"
 using namespace std;
 
-int main(int argc, char** argv) {
-    ReadSTL stl1(argv[1]);
+//int main(int argc, char** argv) {
+int main(){
+    // Debug mode
+    ReadSTL stl1("STLFiles/shape.stl");
+    // End debug mode
+    //ReadSTL stl1(argv[1]);
     cout << endl << "File read successfully!" << endl;  
     // Formatted file info output
     cout << "Facets in file: " << stl1.getNumFacets() << endl << endl;
