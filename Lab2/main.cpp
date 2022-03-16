@@ -21,7 +21,7 @@ int main() {
     for(int i = 0; i < length; i++){
         cout << "before seg fault" << endl;
         // Will use access operator instead
-        cout << row1.row_data[i] << " ";
+        //cout << row1.row_data[i] << " ";
     }
     cout << endl;
     
