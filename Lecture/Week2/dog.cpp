@@ -58,6 +58,11 @@ char& Dog::operator[](int index){
     return name[index];
 }
 
+Dog Dog::puppy(int namelength, char * name){
+    Dog p(0, namelength, name);
+    return p;
+}
+
 ostream& operator<<(ostream& os, const Dog& d){
     for(int i = 0; i< d.namelength; i++) {
         os << d[i];

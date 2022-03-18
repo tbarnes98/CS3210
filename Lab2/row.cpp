@@ -43,16 +43,18 @@ Row::~Row(){
 
 // access operator (const)
 double Row::operator[](unsigned int column) const{
-	//finish
-	double result;
-	return result;
+	if (column >= length) {
+		throw(out_of_range("Column is out of range"));
+	}
+	return row_data[column];
 }
 
 // access operator (non-const)
 double& Row::operator[](unsigned int column){
-	//finish
-	double result;
-	return result;
+	if (column >= length) {
+		throw(out_of_range("Column is out of range"));
+	}
+	return row_data[column];
 }
 
 // assignment operator
