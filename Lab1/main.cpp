@@ -16,12 +16,9 @@
 #include "ReadSTL.cpp"
 using namespace std;
 
-//int main(int argc, char** argv) {
-int main(){
-    // Debug mode
-    ReadSTL stl1("STLFiles/shape.stl");
-    // End debug mode
-    //ReadSTL stl1(argv[1]);
+int main(int argc, char** argv) {
+
+    ReadSTL stl1(argv[1]);
     cout << endl << "File read successfully!" << endl;  
     // Formatted file info output
     cout << "Facets in file: " << stl1.getNumFacets() << endl << endl;
