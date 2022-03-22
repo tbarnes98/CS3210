@@ -1,4 +1,15 @@
-#include<iostream>
+/**
+ * @file row.cpp
+ * @author Trevor Barnes (barnestr@msoe.edu)
+ * @brief Contains the main functionality for row matrices utilizing arrays of
+ * double values
+ * @version 1.0
+ * @date 2022-03-22
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+#include <stdexcept>
 #include "row.h"
 using namespace std;
 
@@ -18,21 +29,17 @@ Row::Row(const Row& from){
 	// New row matrix gets length from previous matrix
 	this->length = from.length;
 	// Create new array in heap with new length
-	this->row_data - new double[this->length];
+	this->row_data = new double[this->length];
 	// Copy all row_data values over to new array
 	for(int i = 0; i < this->length; i++) {
-		cout << "before seg fault" << endl;
-		cout << this->row_data[i] << endl;
 		this->row_data[i] = from[i];
 	}
-	// finish
 }
 
 // destructor
 Row::~Row(){
-	cout << "-Row Destructor-" << endl; // TODO: temp
 	// Check for valid length then free the heap memory
-	if(this->length > 0 ) {
+	if(length > 0 ) {
 		delete[] row_data;
 	}
 }
@@ -63,7 +70,7 @@ Row& Row::operator= (const Row& rhs){
 		// New row matrix gets length from previous matrix
 		this->length = rhs.length;
 		// Create new array in heap with new length
-		this->row_data - new double[this->length];
+		this->row_data = new double[this->length];
 		// Copy all row_data values over to new array
 		for(int i = 0; i < this->length; i ++) {
 			this->row_data[i] = rhs.row_data[i];
