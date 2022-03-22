@@ -4,29 +4,26 @@ using namespace std;
 
 // parameterized constructor
 Row::Row(unsigned int length){
-	cout << "-Row Constructor-" << endl; // TODO: temp
 	// Set matrix length private variable to passed in length
 	this->length = length;
 	// Create new array in heap for row_data
 	this->row_data = new double[length];
 	// Clear all values in new array to 0
-	for(int i = 0; i < length; i++) {
-		cout << "-Row Constructor-" << endl; // TODO: temp
-		this->row_data[i] = 0.0;
-	}
+	clear();
 	// finish
 }
 
 // copy constructor
 Row::Row(const Row& from){
-	cout << "-Row Copy Constructor-" << endl; // TODO: temp
 	// New row matrix gets length from previous matrix
 	this->length = from.length;
 	// Create new array in heap with new length
 	this->row_data - new double[this->length];
 	// Copy all row_data values over to new array
-	for(int i = 0; i < this->length; i ++) {
-		this->row_data[i] = from.row_data[i];
+	for(int i = 0; i < this->length; i++) {
+		cout << "before seg fault" << endl;
+		cout << this->row_data[i] << endl;
+		this->row_data[i] = from[i];
 	}
 	// finish
 }
@@ -38,7 +35,6 @@ Row::~Row(){
 	if(this->length > 0 ) {
 		delete[] row_data;
 	}
-	//finish
 }
 
 // access operator (const)
@@ -59,12 +55,27 @@ double& Row::operator[](unsigned int column){
 
 // assignment operator
 Row& Row::operator= (const Row& rhs){
-	//finish
-	Row result(1);
-	return result;
+	if(&rhs != this){
+		// Delete the current row matrix
+		if(length > 0){
+			delete[] this->row_data;
+		}
+		// New row matrix gets length from previous matrix
+		this->length = rhs.length;
+		// Create new array in heap with new length
+		this->row_data - new double[this->length];
+		// Copy all row_data values over to new array
+		for(int i = 0; i < this->length; i ++) {
+			this->row_data[i] = rhs.row_data[i];
+		}
+	}
+	// Return address of the Row
+	return *this;
 }
 
 // clear row data
 void Row::clear(){
-	//finish
+	for(int i = 0; i < length; i++) {
+		this->row_data[i] = 0;
+	}
 }
