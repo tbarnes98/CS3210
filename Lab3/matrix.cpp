@@ -8,8 +8,10 @@
  * @copyright Copyright (c) 2022
  * 
  */
-#include "matrix.h"
+#include <stdexcept>
 #include <iomanip>
+#include "matrix.h"
+
 using namespace std;
 
 // constructor
@@ -27,24 +29,33 @@ Matrix::Matrix(unsigned int rows, unsigned int cols){
 		// Assign the rows of the matrix to new memory
 		this->the_matrix[i] = new Row(cols);
 	}
-	// finish
  }
  
 // Copy constructor
 Matrix::Matrix(const Matrix& from){
+	// New matrix gets row amount from "from" matrix
 	this->rows = from.rows;
+	// New matrix gets row amount from "from" matrix
 	this->cols = from.cols;
+	// Create the row pointer with new row amount
+	this->the_matrix = new Row*[rows];
 	for(int i = 0; i < this->rows; i++){
-		
+		// Set the pointer to each copied row
+		the_matrix[i] = new Row(from[i]);
 	}
 }
 
 // Destructor
 Matrix::~Matrix(){
-	// finish
+	// Explicitly calls the destructor for each row in the matrix
+	for(int i = 0; i < rows; i++) {
+		the_matrix[i]->~Row();
+	}
+	// Deletes the matrix itself
+	delete[] the_matrix;
 }
  
-// Assignment operator
+// Assignment operator - TODO
 Matrix& Matrix::operator=(const Matrix& rhs){
 	// finish
 	return *this;
@@ -56,6 +67,7 @@ Matrix Matrix::identity(unsigned int size){
 	if(size < 1){ 
 		throw(out_of_range("rows and cols must be greater than 0"));
 	}
+	size--;
 	// Create square matrix
 	Matrix result(size, size);
 	for(int i = 0; i < size; i++){
@@ -63,31 +75,40 @@ Matrix Matrix::identity(unsigned int size){
 		result[i][i] = 1;
 	}
 	return result;
-	// finish
 }	
 		
-// Matrix addition
+// Matrix addition - TODO
 Matrix Matrix::operator+(const Matrix& rhs) const{
 	Matrix result(this->rows, this->cols);
 	// finish
 	return result;
 }
  
-// Matrix multiplication 
+// Matrix multiplication  - TODO
 Matrix Matrix::operator*(const Matrix& rhs) const{
+	if(rows != rhs.cols){
+		throw(invalid_argument("1st matrix rows must equal 2nd matrix cols"));
+	}
+	//for(int i = 0; i < cols; i++)
 	Matrix result(this->rows, rhs.cols);
 	// finish
 	return result;
 }
  
-// Scalar multiplication
+// Scalar multiplication - TODO
 Matrix Matrix::operator*(const double scale) const{
+	for(int i = 0; i < rows; i++){
+		for(int j = 0; j < cols; j++){
+			double temp = (*the_matrix[i])[j]*scale;
+			(*the_matrix[i])[j] = temp;
+		}
+	}
 	Matrix result(this->rows, this->cols);
 	// finish
 	return result;
 }
 
-// Transpose of a Matrix
+// Transpose of a Matrix - TODO
 Matrix Matrix::operator~() const{
 	Matrix result(this->cols, this->rows);
 	// finish
@@ -96,7 +117,9 @@ Matrix Matrix::operator~() const{
  
 // Clear Matrix
 void Matrix::clear(){
-	// finish
+	for(int i = 0; i < rows ; i++) {
+		the_matrix[i]->clear();
+	}
 }
   
 // Access Operators - non-const
@@ -117,20 +140,20 @@ const Row& Matrix::operator[](unsigned int row) const{
 	return *(the_matrix[row]);
 }
  
-// print to output stream
+// print to output stream - TODO
 void Matrix::out(std::ostream& os) const{
 	os << setprecision(4);
 	os << setw(10);	
 	// finish
 }
 
-// global insertion operator
+// global insertion operator - TODO
 std::ostream& operator<<(std::ostream& os, const Matrix& rhs){
 	rhs.out(os);
 	return os;
 }	
 
-// global scalar multiplication
+// global scalar multiplication - TODO
 Matrix operator*(const double scale, const Matrix& rhs){
 	return rhs*scale;
 }
