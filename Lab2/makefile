@@ -1,13 +1,13 @@
 # lab2 Makefile
 
 CC = g++
-CFLAGS = -c -MMD
+CFLAGS = -c -MMD -g
 LFLAGS = 
 # Change w/ every new project
 SOURCES = main.cpp row.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 # Change w/ every new project
-EXECUTABLE = lab2
+EXECUTABLE = Lab2
 
 all: $(EXECUTABLE) $(SOURCES)
 
