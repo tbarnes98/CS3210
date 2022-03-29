@@ -25,7 +25,7 @@ Matrix::Matrix(unsigned int rows, unsigned int cols){
 	this->cols = cols;
 	// Create the row pointer
 	this->the_matrix = new Row*[rows];
-	for(int i = 0; i < rows; i++){
+	for(int i = 0; i < rows+1; i++){
 		// Assign the rows of the matrix to new memory
 		this->the_matrix[i] = new Row(cols);
 	}
@@ -39,7 +39,7 @@ Matrix::Matrix(const Matrix& from){
 	this->cols = from.cols;
 	// Create the row pointer with new row amount
 	this->the_matrix = new Row*[rows];
-	for(int i = 0; i < this->rows; i++){
+	for(int i = 0; i < rows+1; i++){
 		// Set the pointer to each copied row
 		the_matrix[i] = new Row(from[i]);
 	}
@@ -48,7 +48,7 @@ Matrix::Matrix(const Matrix& from){
 // Destructor
 Matrix::~Matrix(){
 	// Explicitly calls the destructor for each row in the matrix
-	for(int i = 0; i < rows; i++) {
+	for(int i = 0; i < rows+1; i++) {
 		the_matrix[i]->~Row();
 	}
 	// Deletes the matrix itself
@@ -95,12 +95,11 @@ Matrix Matrix::operator*(const Matrix& rhs) const{
 	return result;
 }
  
-// Scalar multiplication - TODO
+// Scalar multiplication
 Matrix Matrix::operator*(const double scale) const{
 	for(int i = 0; i < rows; i++){
 		for(int j = 0; j < cols; j++){
-			double temp = (*the_matrix[i])[j]*scale;
-			(*the_matrix[i])[j] = temp;
+			(*the_matrix[i])[j] = (*the_matrix[i])[j]*scale;
 		}
 	}
 	Matrix result(this->rows, this->cols);
@@ -117,7 +116,7 @@ Matrix Matrix::operator~() const{
  
 // Clear Matrix
 void Matrix::clear(){
-	for(int i = 0; i < rows ; i++) {
+	for(int i = 0; i < rows+1; i++) {
 		the_matrix[i]->clear();
 	}
 }
@@ -125,7 +124,7 @@ void Matrix::clear(){
 // Access Operators - non-const
 Row& Matrix::operator[](unsigned int row){
 	// Ensure the row is in range
-	if(row >= rows){
+	if(row > rows){
 		throw(out_of_range("Row is out of range"));
 	}
 	return *(the_matrix[row]);
@@ -134,7 +133,7 @@ Row& Matrix::operator[](unsigned int row){
 // Access Operators - const
 const Row& Matrix::operator[](unsigned int row) const{
 	// Ensure the row is in range
-	if(row >= rows){
+	if(row > rows){
 		throw(out_of_range("Row is out of range"));
 	}
 	return *(the_matrix[row]);
@@ -143,11 +142,28 @@ const Row& Matrix::operator[](unsigned int row) const{
 // print to output stream - TODO
 void Matrix::out(std::ostream& os) const{
 	os << setprecision(4);
-	os << setw(10);	
+	os << "[";
+	for(int i = 0; i < rows; i++) {
+		if(i != 0){
+			cout << " ";
+		}
+		os << "[ ";
+		for(int j = 0; j < cols; j++) {
+			os << (*the_matrix[i])[j];
+			if(j != cols-1){
+				os << ", ";
+			}
+		}
+		os << " ]";
+		if(i != rows-1){
+			os << endl;
+		}
+	}
+	os << "]" << endl;
 	// finish
 }
 
-// global insertion operator - TODO
+// global insertion operator
 std::ostream& operator<<(std::ostream& os, const Matrix& rhs){
 	rhs.out(os);
 	return os;
