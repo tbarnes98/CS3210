@@ -1,0 +1,27 @@
+Shape class
+    data:
+        color (required)
+        1st point
+        # points
+    functions:
+        constructor(color)? <- optional
+            shape::shape(...) <- do this in child?
+        copy constructor
+        assignment operator
+        destructor (virtual)
+        draw <- pure virtual
+            Shape::draw(Graphics context gc)
+            gc->setColor(color)
+
+
+
+
+
+Shape * S1 = new Line(...)
+Shape * S2 = new Triangle(...)
+
+S1->draw(...) draw Line
+S2->draw(...) draw Triangle
+
+
+Image class
