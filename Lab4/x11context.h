@@ -23,7 +23,6 @@ class X11Context : public GraphicsContext
 		void setPixel(int x, int y);
 		unsigned int getPixel(int x, int y);
 		void clear();
-		//void drawLine(int x1, int y1, int x2, int y2);
 		void drawLine(int x1, int y1, int x2, int y2);
 		void drawCircle(int x, int y, unsigned int radius);
 

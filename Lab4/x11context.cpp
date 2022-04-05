@@ -9,7 +9,9 @@
 #include "x11context.h"
 #include "drawbase.h"
 #include <iostream>
+#include <unistd.h>
 
+using namespace std;
 /**
  * The only constructor provided.  Allows size of window and background
  * color be specified.
@@ -203,31 +205,76 @@ int X11Context::getWindowHeight()
 // 	XDrawLine(display, window, graphics_context, x1, y1, x2, y2);		
 // 	XFlush(display);
 // }
-	
+
 // Bresenham Implementation
 void X11Context::drawLine(int x1, int y1, int x2, int y2){
-	//setPixel(x1,y1);
-	// Check direction of line
+	bool steep;
 	if(abs(y2-y1) < abs(x2-x1)){
+		// Steep slope
+		steep = true;
 		if(x1 > x2){
-			//swap
-		} else {
-			//swap
+			// Swap to change drawing direction
+			int temp = x1;
+			x1 = x2;
+			x2 = temp;
+			temp = y1;
+			y1 = y2;
+			y2 = temp;
 		}
 	} else {
-
+		// Shallow slope
+		steep = false;
+		if(y1 > y2){
+			// Swap to change drawing direction
+			int temp = x1;
+			x1 = x2;
+			x2 = temp;
+			temp = y1;
+			y1 = y2;
+			y2 = temp;
+		}
 	}
+	// Initilize algorithm values
 	int dx = x2-x1;
 	int dy = y2-y1;
 	int D = 2*dy-dx;
-	int y = y1;
-	for(int i = x1; i < x2; i++){
-		setPixel(i,y);
-		if(D > 0){
-			y = y+1;
-			D = D-2*dx;
+	// Will either be +1 or -1
+	int c = 1;
+
+	if(steep){
+		// When |dx| > |dy|
+		if(dy<0){
+			c = -1;
+			dy = -dy;
 		}
-		D = D+2*dy;
+		int D = 2*dy-dx;
+		int y = y1;
+		for(int i = x1; i < x2; i++){
+			setPixel(i,y);
+			if(D > 0){
+				y += c;
+				D += (2*(dy-dx));
+			}else{
+				D += 2*dy;
+			}
+		}
+	} else if(!steep){
+		// When |dx| < |dy|
+		if(dx<0){
+			c = -1;
+			dx = -dx;
+		}
+		int D = 2*dx-dy;
+		int x = x1;
+		for(int j = y1; j < y2; j++){
+			setPixel(x,j);
+			if(D > 0){
+				x += c;
+				D += (2*(dx-dy));
+			} else {
+				D += 2*dx;
+			}
+		}
 	}
 }
 
