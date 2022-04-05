@@ -94,7 +94,7 @@ int main(void)
 	gc->drawLine(700,450,700,550);
 	gc->drawLine(700,550,800,450);
 
-	sleep(5);
+	sleep(10);
  
 	delete gc;
  
