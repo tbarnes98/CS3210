@@ -68,7 +68,27 @@ Triangle& Triangle::operator=(const Triangle& rhs){
     return *this;
 }
 
-Shape * Triangle::clone(){
+void Triangle::out(std::ostream& os) const{
+    os << "-Triangle-" << endl;
+    os << "Color: " << color << endl;
+
+    os << "Point 1 - X: " << (*coords)[0][0];
+    os << " Y: " << (*coords)[0][1];
+    os << " Z: " << (*coords)[0][2] << endl;
+
+
+    os << "Point 2 - X: " << (*coords)[1][0];
+    os << " Y: " << (*coords)[1][1];
+    os << " Z: " << (*coords)[1][2] << endl;
+
+
+    os << "Point 3 - X: " << (*coords)[2][0];
+    os << " Y: " << (*coords)[2][1];
+    os << " Z: " << (*coords)[2][2] << endl;
+}
+
+
+Shape* Triangle::clone(){
     return new Triangle(*this);
 }
 

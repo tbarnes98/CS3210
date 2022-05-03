@@ -1,7 +1,7 @@
 /**
  * @file line.cpp
  * @author Trevor Barnes (barnestr@msoe.edu)
- * @brief
+ * @brief 
  * @version 1.0
  * @date 2022-04-12
  *
@@ -35,28 +35,14 @@ Line::Line(int x0, int y0, int x1, int y1, uint32_t color){
 
 Line::Line(const Line &from){
     this->color = from.color;
-    this->coords = new Matrix(4,3);
-    // for (int i = 0; i < 2; i++)
-    // {
-    //     for (int j = 0; j < 2; j++)
-    //     {
-    //         // Needs a look
-    //         this->coords[i][j] = from.coords[i][j];
-    //         //(*coords)[i][j] = (*from.coords)[i][j];
-    //     }
-    // }
-    this->coords[0][0] = from.coords[0][0];
-    this->coords[0][1] = from.coords[0][1];
-    this->coords[0][2] = from.coords[0][2];
-
-    this->coords[1][0] = from.coords[1][0];
-    this->coords[1][1] = from.coords[1][1];
-    this->coords[1][2] = from.coords[1][2];
-
-    this->coords[2][0] = from.coords[2][0];
-    this->coords[2][1] = from.coords[2][1];
-    this->coords[2][2] = from.coords[2][2];
-
+    this->coords = new Matrix(3,3);
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            (*coords)[i][j] = (*from.coords)[i][j];
+        }
+    }
 }
 
 Line::~Line(){
@@ -68,12 +54,12 @@ Line &Line::operator=(const Line &rhs){
     {
         this->color = rhs.color;
         delete coords;
-        coords = new Matrix(3, 3);
+        coords = new Matrix(3,3);
         for (int i = 0; i < 2; i++)
         {
             for (int j = 0; j < 2; j++)
             {
-                this->coords[i][j] = rhs.coords[i][j];
+                (*coords)[i][j] = (*rhs.coords)[i][j];
             }
         }
     }
@@ -86,6 +72,21 @@ void Line::draw(GraphicsContext *gc){
                  (*coords)[1][0], (*coords)[1][1]);
 }
 
-Shape *Line::clone(){
+void Line::out(std::ostream& os) const{
+    os << "-Line-" << endl;
+    os << "Color: " << color << endl;
+
+    os << "Point 1 - X: " << (*coords)[0][0];
+    os << " Y: " << (*coords)[0][1];
+    os << " Z: " << (*coords)[0][2] << endl;
+
+    os << "Point 2 - X: " << (*coords)[1][0];
+    os << " Y: " << (*coords)[1][1];
+    os << " Z: " << (*coords)[1][2] << endl;
+
+}
+
+
+Shape* Line::clone(){
     return new Line(*this);
 }

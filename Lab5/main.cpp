@@ -23,13 +23,12 @@ int main(void)
 	Shape* T1 = new Triangle(250, 100, 50, 320, 125, 200, GraphicsContext::RED);
 	Shape* L2 = L1->clone();
 	Shape* T2 = T1->clone();
-	Shape* L3(L1);
-	Shape* T3(T1);
 	delete L1;
 	delete T1;
-	(*L3).draw(gc);
-	(*T3).draw(gc);
-
+	(*L2).draw(gc);
+	(*T2).draw(gc);
+	(*L2).out(cout);
+	(*T2).out(cout);
 
 	sleep(5);
  

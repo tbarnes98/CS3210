@@ -23,7 +23,8 @@ class Triangle: public Shape{
         ~Triangle();
         Triangle& operator=(const Triangle& rhs);
         void draw(GraphicsContext *gc);
-        Shape * clone();
+        void out(std::ostream& os) const;
+        Shape* clone();
     private:
         Matrix * coords;
 

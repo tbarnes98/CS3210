@@ -13,16 +13,9 @@
 Shape::Shape(){
     this->color = (uint32_t) 0x00FFFFFF;
 }
-Shape::Shape(const Shape& from){
-    this->color = from.color;
-    this->coords = from.coords;
-}
+Shape::Shape(const Shape& from){};
 
 Shape::~Shape(){};
-
-void Shape::draw(GraphicsContext *gc){}
-
-void Shape::out(std::ostream& os, const Shape& rhs){}
 
 Shape& Shape::operator=(const Shape& rhs){
     return *this;

@@ -23,6 +23,7 @@ class Line: public Shape{
         ~Line();
         Line& operator=(const Line& rhs);
         void draw(GraphicsContext *gc);
+        void out(std::ostream& os) const;
         Shape* clone();
 };
 
