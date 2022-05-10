@@ -11,6 +11,7 @@
 #include "shape.h"
 #include "matrix.h"
 #include "line.h"
+#include <iomanip>
 
 Line::Line(int x0, int y0, int x1, int y1, uint32_t color){
     coords = new Matrix(3, 3);
@@ -30,7 +31,7 @@ Line::Line(int x0, int y0, int x1, int y1, uint32_t color){
     (*coords)[2][1] = 1.0;
     (*coords)[2][2] = 1.0;
 
-    this->color = color;
+    this->color = color & 0x00FFFFFF;
 }
 
 Line::Line(const Line &from){
@@ -73,16 +74,12 @@ void Line::draw(GraphicsContext *gc){
 }
 
 void Line::out(std::ostream& os) const{
-    os << "-Line-" << endl;
-    os << "Color: " << color << endl;
-
-    os << "Point 1 - X: " << (*coords)[0][0];
-    os << " Y: " << (*coords)[0][1];
-    os << " Z: " << (*coords)[0][2] << endl;
-
-    os << "Point 2 - X: " << (*coords)[1][0];
-    os << " Y: " << (*coords)[1][1];
-    os << " Z: " << (*coords)[1][2] << endl;
+    os << "Line" << endl;
+    os << "Color: " << hex << setw(6) << setfill('0') << color << endl;
+    os << "P1: " << (*coords)[0][0] << " " << (*coords)[0][1];
+    os << " " << (*coords)[0][2] << endl;
+    os << "P2: " << (*coords)[1][0] << " " << (*coords)[1][1];
+    os << " " << (*coords)[1][2] << endl;
 
 }
 

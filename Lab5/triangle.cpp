@@ -11,6 +11,7 @@
 #include "shape.h"
 #include "matrix.h"
 #include "triangle.h"
+#include <iomanip>
 
 Triangle::Triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color){
     coords = new Matrix(4,3);
@@ -35,7 +36,7 @@ Triangle::Triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t colo
     (*coords)[3][1] = 1.0;
     (*coords)[3][2] = 1.0;
 
-    this->color = color;
+    this->color = color & 0x00FFFFFF;
 }
 
 Triangle::Triangle(const Triangle &from){
@@ -69,22 +70,14 @@ Triangle& Triangle::operator=(const Triangle& rhs){
 }
 
 void Triangle::out(std::ostream& os) const{
-    os << "-Triangle-" << endl;
-    os << "Color: " << color << endl;
-
-    os << "Point 1 - X: " << (*coords)[0][0];
-    os << " Y: " << (*coords)[0][1];
-    os << " Z: " << (*coords)[0][2] << endl;
-
-
-    os << "Point 2 - X: " << (*coords)[1][0];
-    os << " Y: " << (*coords)[1][1];
-    os << " Z: " << (*coords)[1][2] << endl;
-
-
-    os << "Point 3 - X: " << (*coords)[2][0];
-    os << " Y: " << (*coords)[2][1];
-    os << " Z: " << (*coords)[2][2] << endl;
+    os << "Triangle" << endl;
+    os << "Color: " << hex << setw(6) << setfill('0') << color << endl;
+    os << "P1: " << (*coords)[0][0] << " " << (*coords)[0][1];
+    os << " " << (*coords)[0][2] << endl;
+    os << "P2: " << (*coords)[1][0] << " " << (*coords)[1][1];
+    os << " " << (*coords)[1][2] << endl;
+    os << "P3: " << (*coords)[2][0] << " " << (*coords)[2][1];
+    os << " " << (*coords)[2][2] << endl;
 }
 
 

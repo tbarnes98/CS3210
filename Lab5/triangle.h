@@ -18,15 +18,26 @@
 class Triangle: public Shape{
     public:
         // Triangle constructor
-        Triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color);
+        Triangle(int x0, int y0, int x1, int y1, int x2, int y2, 
+                 uint32_t color);
+
+        // Triangle copy constructor
         Triangle(const Triangle& from);
+
+        // Triangle destructor
         ~Triangle();
+
+        // Triangle assignment operator
         Triangle& operator=(const Triangle& rhs);
+
+        // Draw function
         void draw(GraphicsContext *gc);
+
+        // Outputs line data to os
         void out(std::ostream& os) const;
+
+        // Clones a triangle
         Shape* clone();
-    private:
-        Matrix * coords;
 
 };
 #endif

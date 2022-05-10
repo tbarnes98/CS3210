@@ -1,0 +1,106 @@
+Line
+Color: ffff00
+P1: 250 500 0
+P2: 550 500 0
+
+Line
+Color: ffff00
+P1: 250 500 0
+P2: 150 400 0
+
+Line
+Color: ffff00
+P1: 150 400 0
+P2: 650 400 0
+
+Line
+Color: ffff00
+P1: 650 400 0
+P2: 550 500 0
+
+Line
+Color: ffff00
+P1: 400 400 0
+P2: 400 100 0
+
+Triangle
+Color: ffff00
+P1: 400 100 0
+P2: 300 150 0
+P3: 400 200 0
+
+Line
+Color: 0000ff
+P1: 0 550 0
+P2: 100 450 0
+
+Line
+Color: 0000ff
+P1: 100 450 0
+P2: 100 550 0
+
+Line
+Color: 0000ff
+P1: 100 550 0
+P2: 200 450 0
+
+Line
+Color: 0000ff
+P1: 200 450 0
+P2: 200 550 0
+
+Line
+Color: 0000ff
+P1: 200 550 0
+P2: 300 450 0
+
+Line
+Color: 0000ff
+P1: 300 450 0
+P2: 300 550 0
+
+Line
+Color: 0000ff
+P1: 300 550 0
+P2: 400 450 0
+
+Line
+Color: 0000ff
+P1: 400 450 0
+P2: 400 550 0
+
+Line
+Color: 0000ff
+P1: 400 550 0
+P2: 500 450 0
+
+Line
+Color: 0000ff
+P1: 500 450 0
+P2: 500 550 0
+
+Line
+Color: 0000ff
+P1: 500 550 0
+P2: 600 450 0
+
+Line
+Color: 0000ff
+P1: 600 450 0
+P2: 600 550 0
+
+Line
+Color: 0000ff
+P1: 600 550 0
+P2: 700 450 0
+
+Line
+Color: 0000ff
+P1: 700 450 0
+P2: 700 550 0
+
+Line
+Color: 0000ff
+P1: 700 550 0
+P2: 800 450 0
+
