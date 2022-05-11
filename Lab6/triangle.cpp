@@ -1,0 +1,95 @@
+/**
+ * @file triangle.cpp
+ * @author Trevor Barnes (barnestr@msoe.edu)
+ * @brief 
+ * @version 1.0
+ * @date 2022-04-12
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+//#include "shape.h"
+#include <iomanip>
+#include "triangle.h"
+
+Triangle::Triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color){
+    coords = new Matrix(4,3);
+
+    // Point 1
+    (*coords)[0][0] = x0;
+    (*coords)[0][1] = y0;
+    (*coords)[0][2] = 0.0;
+
+    // Point 2
+    (*coords)[1][0] = x1;
+    (*coords)[1][1] = y1;
+    (*coords)[1][2] = 0.0;
+
+    // Point 3
+    (*coords)[2][0] = x2;
+    (*coords)[2][1] = y2;
+    (*coords)[2][2] = 0.0;
+
+    // Ones
+    (*coords)[3][0] = 1.0;
+    (*coords)[3][1] = 1.0;
+    (*coords)[3][2] = 1.0;
+
+    this->color = color & 0x00FFFFFF;
+}
+
+Triangle::Triangle(const Triangle &from){
+    this->coords = new Matrix(4,3);
+    (*this).color = from.color;
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            (*coords)[i][j] = (*from.coords)[i][j];
+        }
+    }
+}
+
+Triangle::~Triangle(){
+    delete coords;
+}
+
+Triangle& Triangle::operator=(const Triangle& rhs){
+    if(&rhs != this){
+        this->color = rhs.color;
+        delete coords;
+        coords = new Matrix(4,3);
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 2; j++){
+                this->coords[i][j] = rhs.coords[i][j];
+            }
+        }
+    }
+    return *this;
+}
+
+void Triangle::out(std::ostream& os) const{
+    os << "Triangle" << endl;
+    os << "Color: " << hex << setw(6) << setfill('0') << color << endl;
+    os << "P1: " << (*coords)[0][0] << " " << (*coords)[0][1];
+    os << " " << (*coords)[0][2] << endl;
+    os << "P2: " << (*coords)[1][0] << " " << (*coords)[1][1];
+    os << " " << (*coords)[1][2] << endl;
+    os << "P3: " << (*coords)[2][0] << " " << (*coords)[2][1];
+    os << " " << (*coords)[2][2] << endl;
+}
+
+
+Shape* Triangle::clone(){
+    return new Triangle(*this);
+}
+
+void Triangle::draw(GraphicsContext *gc, const ViewContext* vc){
+    gc->setColor(color);
+    gc->drawLine((*coords)[0][0], (*coords)[0][1],
+                 (*coords)[1][0], (*coords)[1][1]);
+    gc->drawLine((*coords)[1][0], (*coords)[1][1],
+                 (*coords)[2][0], (*coords)[2][1]);
+    gc->drawLine((*coords)[2][0], (*coords)[2][1],
+                 (*coords)[0][0], (*coords)[0][1]);
+}
