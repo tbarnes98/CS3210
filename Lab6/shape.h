@@ -13,8 +13,7 @@
 #include <iostream>
 #include "x11context.h"
 #include "matrix.h"
-#include "mydrawing.h"
-//#include "viewcontext.h"
+#include "viewcontext.h"
 
 using namespace std;
 

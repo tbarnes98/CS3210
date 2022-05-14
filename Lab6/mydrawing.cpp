@@ -1,5 +1,4 @@
 #include "mydrawing.h"
-//#include <iostream>
 
 using namespace std;
 MyDrawing::MyDrawing()
@@ -124,3 +123,4 @@ void setLargePixel(GraphicsContext *gc, int x, int y)
     gc->setPixel(x - 1, y - 1);
     gc->setPixel(x, y - 1);
     gc->setPixel(x + 1, y - 1);
+}

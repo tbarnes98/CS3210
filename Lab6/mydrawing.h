@@ -3,9 +3,7 @@
 
 #include <iostream>
 #include "drawbase.h"
-#include "gcontext.h"
 #include "image.h"
-#include "matrix.h"
 using namespace std;
 
 class MyDrawing: public DrawingBase{
